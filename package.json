@@ -1,0 +1,21 @@
+{
+  "name": "ws-session",
+  "version": "1.0.8",
+  "bugs": {
+    "url": "https://github.com/timetoburnfire/ws-session/issues",
+    "email": "wssession.sup@gmail.com"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Vladislav Tkachenko",
+    "email": "timetoburnfire@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timetoburnfire/ws-session.git"
+  },
+  "dependencies": {
+    "cookie": "^0.2.3",
+    "shortid": "^2.2.4"
+  }
+}
