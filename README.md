@@ -2,4 +2,5 @@
 
 Used with ws-sessions module on server.
 
-This is client for Web Socket based on ws module connection and generate unique session for browser.
+This is client for Web Socket based on ws module connection. Is generate an unique session for browser.
+
