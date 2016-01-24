@@ -1,4 +1,4 @@
-class Handlers {
+class Collectioned {
   constructor () {
     const defaults = {
       collection: [ ],
@@ -25,4 +25,4 @@ class Handlers {
   }
 }
 
-export default Handlers
+export default Collectioned

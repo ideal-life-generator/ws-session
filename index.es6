@@ -1,8 +1,8 @@
 import { parse } from "cookie"
 import { generate } from "shortid"
-import Handlers from "./lib/handlers"
+import Collectioned from "./lib/collectioned"
 
-class WsSession extends Handlers {
+class WsSession extends Collectioned {
   constructor (serverUrl) {
     super()
     const cookieObj = parse(document.cookie)
@@ -40,7 +40,7 @@ class WsSession extends Handlers {
       const message = JSON.parse(messageJSON)
       const { eventName: remoteEventName, data: messageData } = message
       if (eventName === remoteEventName) {
-        callback.apply(null, messageData)
+        callback(messageData)
       }
     }
     this.webSocket.addEventListener("message", handler)

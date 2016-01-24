@@ -18,11 +18,5 @@
   "dependencies": {
     "cookie": "^0.2.3",
     "shortid": "^2.2.4"
-  },
-  "files": [
-    "LICENSE"
-    "README.md",
-    "index.js",
-    "lib/"
-  ],
+  }
 }
