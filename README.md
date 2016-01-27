@@ -1,6 +1,6 @@
 # ws-session
 
-Don't donwload it now, it work currently with **ws-sessions**. Now it in progress.
+## *Don't donwload it now, it work currently with ws-sessions. Now it in progress.*
 
 Simple realization of Web Socket connection with session id.
 
@@ -15,14 +15,14 @@ $ npm install ws-session
 ```js
 import connect from "ws-session"
 
-const { connected, subscribe, send, sessionId } = connect("ws://localhost:5000")
+const { connected, subscribe, send } = connect("ws://localhost:5000")
 
 connected(() => {
   send("greeting", "hi")
 })
 
 sibscribe("response", (data) => {
-  send("greeting", "hi you second time")
+  send("present", "I'm a node.js developer.")
 })
 ```
 
@@ -102,7 +102,6 @@ The session identifier. It is used by the server to communicate with all connect
 #### webSocket
 
 Pure Web Socket instance used in the current connection.
-
 
 ## If the plugin is good
 
