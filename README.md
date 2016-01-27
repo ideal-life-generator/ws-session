@@ -58,7 +58,7 @@ connected(() => {
 })
 ```
 
-#### send(identifier, data)
+#### send(identifier, data...)
 
 ```js
 send("user.update", user)
