@@ -58,7 +58,7 @@ connected(() => {
 })
 ```
 
-#### send(event, data...)
+#### send(identifier, data...)
 
 ```js
 send("user.update", user)
@@ -66,7 +66,7 @@ send("user.update", user)
 
 Send message to the server.
 
-#### subscribe(event, callback)
+#### subscribe(identifier, callback)
 
 ```js
 subscribe("user.updated", (user) => {
@@ -74,7 +74,7 @@ subscribe("user.updated", (user) => {
 })
 ```
 
-Subscribe to an event from the server.
+Subscribe to an identifier from the server.
 
 Returns a function to unsubscribe:
 
@@ -85,7 +85,7 @@ const unsubscribe = subscribe("settings.default-language", (language) => {
 })
 ```
 
-#### subscribeOnce(event, callback)
+#### subscribeOnce(identifier, callback)
 
 ```js
 subscribeOnce("settings.default-language", (language) => {
@@ -93,7 +93,7 @@ subscribeOnce("settings.default-language", (language) => {
 })
 ```
 
-Сan be used if you want to subscribe to an event once.
+Сan be used if you want to subscribe to an identifier once.
 
 #### sessionId
 
