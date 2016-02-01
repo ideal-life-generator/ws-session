@@ -1,10 +1,8 @@
 # ws-session
-
 ## Donate: 5300 7211 1281 6316
+## *This is more than communication with a socket.*
 
-## It used with [ws-sessions](https://www.npmjs.com/package/ws-sessions) on the server.
-
-## *This is more than communication with a single socket.*
+Used with [ws-sessions](https://www.npmjs.com/package/ws-sessions) on the server.
 
 ## Installation
 
@@ -38,19 +36,19 @@ First you need to connect to the server:
 const { connected, send, subscribe, subscribeOnce, sessionId, webSocket } = connect("ws://localhost:5000")
 ```
 
-Returns ease functionality for working with the connection.
+Returns ease interface for working with the connection.
 
 ## API
 
 #### connected(callback)
 
 ```js
-const unsubscribe = connected(() => {
+connected(() => {
   // ...
 })
 ```
 
-The callback function is invoked when a connection is ready. Returns function to unsubscribe.
+The callback function is invoked when a connection is ready. Returns function to [unsubscribe](https://www.npmjs.com/package/ws-session#unsubscribe).
 
 It is necessary, if you want to make a request to the server once a connection is works:
 
@@ -71,21 +69,37 @@ send("user.update", user)
 #### subscribe(event, callback)
 
 ```js
-const unsubscribe = subscribe("user.updated", (user) => {
+subscribe("user.updated", (user) => {
   // ...
 })
 ```
 
-Used for receiving data from the server. Returns function to unsubscribe.
+Used for receiving data from the server. Returns function to [unsubscribe](https://www.npmjs.com/package/ws-session#unsubscribe).
 
 #### subscribeOnce(event, callback)
 
-The same, but unsubscribe after receive data. Returns function to unsubscribe.
+The same, but receives the data only once. Returns function to [unsubscribe](https://www.npmjs.com/package/ws-session#unsubscribe).
 
 ```js
-const unsubscribe = subscribeOnce("settings.default-language", (language) => {
+subscribeOnce("settings.default-language", (language) => {
   // ...
 })
+```
+
+#### unsubscribe
+
+Methods that return function to unsubscribe:
+
+```js
+const unsubscribers = new Set()
+unsubscribers.add(connected(// ...))
+unsubscribers.add(subscribe(// ...))
+unsubscribers.add(subscribeOnce(// ...))
+
+// When you want to remove all subscriptions:
+
+unsubscribers.forEach(unsubscribe => { unsubscribe() })
+unsubscribers.clear()
 ```
 
 #### sessionId
