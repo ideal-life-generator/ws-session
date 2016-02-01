@@ -1,8 +1,10 @@
 # ws-session
 
-## *Don't donwload it now, it work currently with ws-sessions. Now it in progress.*
+## Donate: 5300 7211 1281 6316
 
-Simple realization of Web Socket connection with session id.
+## It used with [ws-sessions](https://www.npmjs.com/package/ws-sessions) on the server.
+
+## *This is more than communication with a single socket.*
 
 ## Installation
 
@@ -13,22 +15,22 @@ $ npm install ws-session
 ## Example
 
 ```js
-import connect from "ws-session"
+import session from "ws-session"
 
-const { connected, subscribe, send } = connect("ws://localhost:5000")
+const { connected, send, subscribe } = session("ws://localhost:5000")
 
 connected(() => {
-  send("greeting", "hi")
+  send("greeting.request", "hi")
 })
 
-sibscribe("response", (data) => {
-  send("present", "I'm a node.js developer.")
+sibscribe("greeting.response", (data) => {
+  send("present.request", "I'm a node.js developer.")
 })
 ```
 
 ## Usage
 
-Firstly you must initialize connection to the server:
+First you need to connect to the server:
 
 #### connect(url)
 
@@ -36,21 +38,21 @@ Firstly you must initialize connection to the server:
 const { connected, send, subscribe, subscribeOnce, sessionId, webSocket } = connect("ws://localhost:5000")
 ```
 
-Is returns easy functionality to communicate with server, which is described in detail below.
+Returns ease functionality for working with the connection.
 
 ## API
 
 #### connected(callback)
 
 ```js
-connected(() => {
+const unsubscribe = connected(() => {
   // ...
 })
 ```
 
-Callback invoked when a connection is ready.
+The callback function is invoked when a connection is ready. Returns function to unsubscribe.
 
-Must be used if you want to send a message as soon as the application is running:
+It is necessary, if you want to make a request to the server once a connection is works:
 
 ```js
 connected(() => {
@@ -58,51 +60,38 @@ connected(() => {
 })
 ```
 
-#### send(identifier, data...)
+#### send(event, data [, data ...])
+
+Send data to the server.
 
 ```js
 send("user.update", user)
 ```
 
-Send message to the server.
-
-#### subscribe(identifier, callback)
+#### subscribe(event, callback)
 
 ```js
-subscribe("user.updated", (user) => {
+const unsubscribe = subscribe("user.updated", (user) => {
   // ...
 })
 ```
 
-Subscribe to an identifier from the server.
+Used for receiving data from the server. Returns function to unsubscribe.
 
-Returns a function to unsubscribe:
+#### subscribeOnce(event, callback)
 
-```js
-const unsubscribe = subscribe("settings.default-language", (language) => {
-  // ...
-  unsubscribe()
-})
-```
-
-#### subscribeOnce(identifier, callback)
+The same, but unsubscribe after receive data. Returns function to unsubscribe.
 
 ```js
-subscribeOnce("settings.default-language", (language) => {
+const unsubscribe = subscribeOnce("settings.default-language", (language) => {
   // ...
 })
 ```
-
-Сan be used if you want to subscribe to an identifier once.
 
 #### sessionId
 
-The session identifier. It is used by the server to communicate with all connections.
+Id of the current session, which is used on the server.
 
 #### webSocket
 
-Pure Web Socket instance used in the current connection.
-
-## If the plugin is good
-
-MasterCard: 5300 7211 1281 6316
+Pure browser Web Socket instance used in the current connection. Use if you want to do something more.

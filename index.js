@@ -1,66 +1,69 @@
 import { parse } from "cookie"
 import { generate } from "shortid"
 
-function connect () {
-
-  let webSocket = new WebSocket.apply(WebSocket, arguments)
+function session (url) {
+  const connects = new Set()
+  const subscribes = new Map()
 
   const cookieObj = parse(document.cookie)
-  let { wsSessionId: sessionId } = cookieObj  
-  if (!Boolean(sessionId)) {
-    sessionId = generate()
-    document.cookie = `wsSessionId=${sessionId};`
+  let { socketSessionId } = cookieObj  
+  if (Boolean(socketSessionId) === false) {
+    socketSessionId = generate()
+    document.cookie = `socketSessionId=${socketSessionId};`
   }
+
+  const webSocket = new WebSocket(url)
+
+  webSocket.addEventListener("open", () => {
+    connects.forEach((callback) => {
+      callback()
+    })
+  })
+
+  webSocket.addEventListener("message", (event) => {
+    const { data: messageJSON } = event
+    const { identifier, data } = JSON.parse(messageJSON)
+    const callback = subscribes.get(identifier)
+    if (Boolean(callback)) {
+      callback.apply(null, data)
+    }
+  })
 
   function connected (callback) {
-    let handler = () => {
-      callback()
-      webSocket.removeEventListener("open", handler)
-    }
-    webSocket.addEventListener("open", handler)
-    return () => {
-      webSocket.removeEventListener("open", handler)
+    connects.add(callback)
+    return function unsubscribe () {
+      connects.delete(callback)
     }
   }
 
-  function subscribeOnce (eventName, callback) {
+  function send (identifier, ...data) {
+    webSocket.send(JSON.stringify({ identifier, data }))
+  }
+
+  function subscribe (identifier, callback) {
+    subscribes.set(identifier, callback)
+    return function unsubscribe () {
+      subscribes.delete(identifier)
+    }
+  }
+
+  function subscribeOnce (identifier, callback) {
     function handler () {
       callback.apply(null, arguments)
       unsubscribe()
     }
-    let unsubscribe = subscribe(eventName, handler)
+    const unsubscribe = subscribe(identifier, handler)
     return unsubscribe
   }
 
-  function subscribe (eventName, callback) {
-    function handler (event) {
-      const { data: messageJSON } = event
-      const message = JSON.parse(messageJSON)
-      const { eventName: remoteEventName, data: data } = message
-      if (eventName === remoteEventName) {
-        callback.apply(null, data)
-      }
-    }
-    webSocket.addEventListener("message", handler)
-    return () => {
-      webSocket.removeEventListener("message", handler)
-    }
-  }
-
-  function send (eventName, data) {
-    const message = { eventName, data }
-    const messageJSON = JSON.stringify(message)
-    webSocket.send(messageJSON)
-  }
-
   return {
-    sessionId,
+    socketSessionId,
     webSocket,
     connected,
-    subscribeOnce,
+    send,
     subscribe,
-    send
+    subscribeOnce
   }
 }
 
-export default connect
+export default session
