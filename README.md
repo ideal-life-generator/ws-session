@@ -1,10 +1,10 @@
 # ws-session
 
-## Donate: 5300 7211 1281 6316
+Used with [ws-sessions](https://www.npmjs.com/package/ws-sessions) on the server.
+
+Donate: 5300 7211 1281 6316
 
 ## *This is more than communication with a socket.*
-
-Used with [ws-sessions](https://www.npmjs.com/package/ws-sessions) on the server.
 
 ## Installation
 
@@ -90,7 +90,7 @@ subscribeOnce("settings.default-language", (language) => {
 
 #### unsubscribe
 
-Methods that return function to unsubscribe:
+Methods that return function to unsubscribe
 
 ```js
 const unsubscribers = new Set()
