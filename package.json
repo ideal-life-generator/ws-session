@@ -1,43 +1,26 @@
 {
   "author": {
-    "email": "timetoburnfire@gmail.com",
-    "name": "Vladislav Tkachenko"
+    "email": "ideal.life.generator@gmail.com",
+    "name": "Ideal Life"
   },
   "bugs": {
     "email": "wssession.sup@gmail.com",
-    "url": "https://github.com/timetoburnfire/ws-session/issues"
+    "url": "https://github.com/ideal-life/case-reducer/issues"
   },
-  "dependencies": {
-    "cookie": "^0.2.3",
-    "shortid": "^2.2.4"
-  },
-  "description": "Creates a session for connections.",
-  "devDependencies": {},
-  "directories": {},
-  "dist": {
-    "shasum": "30ce57a6149593fc53cf0bf334219096115150d0",
-    "tarball": "http://registry.npmjs.org/ws-session/-/ws-session-1.0.12.tgz"
-  },
-  "gitHead": "1ec25063340c1fb962e16b0c05504af7529720de",
-  "homepage": "https://github.com/timetoburnfire/ws-session#readme",
+  "description": "Light reducers architecture",
+  "homepage": "https://github.com/ideal-life/case-reducer/#readme",
   "keywords": [
-    "session",
-    "web socket",
-    "ws",
-    "ws-sessions"
+    "react",
+    "redux",
+    "reducer",
+    "reducers",
+    "case-reducer"
   ],
   "license": "MIT",
-  "maintainers": [
-    {
-      "name": "timetoburnfire",
-      "email": "timetoburnfire@gmail.com"
-    }
-  ],
-  "name": "ws-session",
-  "optionalDependencies": {},
+  "name": "case-reducer",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/timetoburnfire/ws-session.git"
+    "url": "git+https://github.com/ideal-life/case-reducer.git"
   },
-  "version": "0.1.15"
+  "version": "0.0.3"
 }
